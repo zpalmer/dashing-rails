@@ -13,6 +13,13 @@ RSpec.describe Dashing::Configuration do
   it { expect(instance.redis_password).to         be_nil }
   it { expect(instance.redis_timeout).to          eq(3) }
   it { expect(instance.redis_namespace).to        eq('dashing_events') }
+  it "can gracefully shutdown redis" do
+    config = Dashing::Configuration.new
+    config.redis
+    expect(config.instance_variable_get(:@redis)).not_to be_nil
+    config.shutdown_redis
+    expect(config.instance_variable_get(:@redis)).to be_nil
+  end
 
   # Authorization
   it { expect(instance.auth_token).to             be_nil }

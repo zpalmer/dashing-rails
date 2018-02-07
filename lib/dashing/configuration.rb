@@ -50,6 +50,12 @@ module Dashing
       ::Redis.new(host: redis_host, port: redis_port, password: redis_password)
     end
 
+    def shutdown_redis
+      return unless @redis
+      @redis.shutdown { |redis_connection| redis_connection.quit }
+      @redis = nil
+    end
+
     private
 
     def request_thread_count

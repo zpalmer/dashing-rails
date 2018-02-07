@@ -1,7 +1,7 @@
 module Dashing
   class << self
 
-    delegate :scheduler, :redis, to: :config
+    delegate :scheduler, :redis, :shutdown_redis, to: :config
 
     attr_accessor :configuration
 
