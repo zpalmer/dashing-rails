@@ -16,7 +16,7 @@ module Dashing
           end
         end
       end
-    rescue IOError
+    rescue IOError, ActionController::Live::ClientDisconnected
       logger.info "[Dashing][#{Time.now.utc.to_s}] Stream closed"
     ensure
       Dashing.shutdown_redis
